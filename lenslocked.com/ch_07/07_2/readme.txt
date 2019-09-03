@@ -1,0 +1,1 @@
+sign up form page - adding a panel
