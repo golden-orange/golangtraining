@@ -4,8 +4,8 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
-	"lenslocked.com/ch_07/07_1/views"
-	"lenslocked.com/ch_07/07_3/controllers"
+	"lenslocked.com/ch_07/07_4/controllers"
+	"lenslocked.com/ch_07/07_4/views"
 )
 
 var (
@@ -52,11 +52,11 @@ func main() {
 	usersC := controllers.NewUsers()
 
 	r := mux.NewRouter()
-	r.HandleFunc("/", home)
-	r.HandleFunc("/faq", faq)
-	r.HandleFunc("/signup", usersC.New)
-	r.HandleFunc("/contact", contact)
+	r.HandleFunc("/", home).Methods("GET")
+	r.HandleFunc("/faq", faq).Methods("GET")
+	r.HandleFunc("/signup", usersC.New).Methods("GET")
+	r.HandleFunc("/contact", contact).Methods("GET")
 	http.ListenAndServe(":8012", r)
 }
 
-//lenslocked.com ch_07 07_1
+//lenslocked.com ch_07 07_4

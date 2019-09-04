@@ -4,8 +4,12 @@ import (
 	"fmt"
 	"net/http"
 
-	"lenslocked.com/ch_07/07_3/views"
+	"lenslocked.com/ch_07/07_4/views"
 )
+
+type Users struct {
+	NewView *views.View
+}
 
 func NewUsers() *Users {
 	return &Users{
@@ -28,9 +32,9 @@ func (u *Users) New(w http.ResponseWriter, r *http.Request) {
 //
 // POST /signup
 func (u *Users) Create(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "This is a temporary response.")
-}
-
-type Users struct {
-	NewView *views.View
+	if err := r.ParseForm(); err != nil {
+		panic(err)
+	}
+	fmt.Fprintln(w, r.PostForm["email"])
+	fmt.Fprintln(w, r.PostForm["password"])
 }
