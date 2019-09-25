@@ -8,10 +8,11 @@ import (
 
 const (
   host = "localhost"
+  email = "findme@scottlaing.ca"
   port = 5432
   user = "postgres"
   dbname = "postgres"
-  password = "re300ter"
+  password = "password"
 )
 
 func main()  {
@@ -30,7 +31,7 @@ INSERT INTO users (age, email, first_name, last_name)
 VALUES ($1, $2, $3, $4)
 RETURNING id`
   id := 0
-  err = db.QueryRow(sqlStatement, 53, "findme@scottlaing.ca", "Scott", "Laing").Scan(&id)
+  err = db.QueryRow(sqlStatement, 27, "gh@beatles.com", "George", "Harrison").Scan(&id)
 
   if err != nil {
     panic(err)
