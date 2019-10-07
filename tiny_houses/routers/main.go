@@ -10,6 +10,12 @@ import (
 	"github.com/nbari/violetear"
 )
 
+func statusNotFound(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusNotFound)
+	fmt.Fprint(w, "<h1>404 Error</h1>\n")
+	fmt.Fprint(w, "<h2>We could not find the page you were seeking.</h2> <p>Please contact us if you require further assistance.</p>")
+}
+
 func main() {
 
 	// create handler to be passed as value to HandleFunc
@@ -44,6 +50,9 @@ func main() {
 	vr.HandleFunc("/jq/", jewishQuestion)
 	vr.HandleFunc("/crimecity/", crimeCity)
 	vr.HandleFunc("/contact", contact)
+
+	var n http.Handler = http.HandlerFunc(statusNotFound)
+	vr.NotFoundHandler = n
 
 	// set address (port) and use default value for handler
 	http.ListenAndServe(":8013", vr)
