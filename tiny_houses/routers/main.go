@@ -1,15 +1,14 @@
+// update router method, using violetear
+
 package main
 
 import (
 	"fmt"
 	"net/http"
-)
 
-func statusNotFound(w http.ResponseWriter, r *http.Request) {
-	w.WriteHeader(http.StatusNotFound)
-	fmt.Fprint(w, "<h1>404 Error</h1>\n")
-	fmt.Fprint(w, "<h2>We could not find the page you were seeking.</h2> <p>Please contact us if you require further assistance.</p>")
-}
+	// import violetear router
+	"github.com/nbari/violetear"
+)
 
 func main() {
 
@@ -38,16 +37,14 @@ func main() {
 	crimeCity := func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprint(w, "<h1>A non-mainstream look at actual crime data and meaning</h1>")
 	}
-
-	// set path and handler
-	http.HandleFunc("/", home)
-	http.HandleFunc("/fitoverfifty/", fitOverFifty)
-	http.HandleFunc("/jq/", jewishQuestion)
-	http.HandleFunc("/crimecity/", crimeCity)
-	http.HandleFunc("/contact", contact)
-	// var n http.Handler = http.HandlerFunc(statusNotFound)
-	// http.NotFoundHandler = n
+	// set new instance of violetear router
+	vr := violetear.New()
+	vr.HandleFunc("/", home)
+	vr.HandleFunc("/fitoverfifty/", fitOverFifty)
+	vr.HandleFunc("/jq/", jewishQuestion)
+	vr.HandleFunc("/crimecity/", crimeCity)
+	vr.HandleFunc("/contact", contact)
 
 	// set address (port) and use default value for handler
-	http.ListenAndServe(":8013", nil)
+	http.ListenAndServe(":8013", vr)
 }
